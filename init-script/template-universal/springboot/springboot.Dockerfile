@@ -7,7 +7,7 @@ RUN adduser --gecos '' --disabled-password template
 
 ADD bin /home/template
 
-EXPOSE 8082
+EXPOSE 20000
 USER template
 WORKDIR /home/template
 ENTRYPOINT [ "java", "-jar", "/home/template/template-universal-1.0.0.jar" ]
