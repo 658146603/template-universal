@@ -2,6 +2,7 @@ package template.universal.controller
 
 import com.google.gson.Gson
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import template.universal.model.FormData
@@ -16,18 +17,17 @@ import javax.servlet.http.HttpServletRequest
 class DataReceiveController {
 
     @Autowired
-    lateinit var dataReceiveService: DataReceiveService
+    private lateinit var dataReceiveService: DataReceiveService
 
-    @RequestMapping("/upload/data")
-    fun uploadDataReceiver(request: HttpServletRequest): Responses<FormData> {
+    @RequestMapping("/upload/data/{page}")
+    fun uploadDataReceiver(request: HttpServletRequest, @PathVariable page: String): Responses<FormData> {
         val formData = FormData()
         formData.submitId = uuid()
+        formData.submitPage = page
         formData.submitTime = Date()
         formData.submitIpAddress = request.getRequestIpAddress()
         formData.submitContent = Gson().toJson(request.parameterMap)
 
-        dataReceiveService.receiveData(formData)
-
-        return Responses.ok(data = formData)
+        return dataReceiveService.receiveData(formData)
     }
 }

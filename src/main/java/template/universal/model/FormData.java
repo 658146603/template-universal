@@ -4,13 +4,10 @@ import java.util.Date;
 
 public class FormData {
     private String submitId;
+    private String submitPage;
     private String submitIpAddress;
     private Date submitTime;
     private String submitContent;
-
-
-    public FormData() {
-    }
 
     public String getSubmitId() {
         return submitId;
@@ -18,6 +15,14 @@ public class FormData {
 
     public void setSubmitId(String submitId) {
         this.submitId = submitId;
+    }
+
+    public String getSubmitPage() {
+        return submitPage;
+    }
+
+    public void setSubmitPage(String submitPage) {
+        this.submitPage = submitPage;
     }
 
     public String getSubmitIpAddress() {
