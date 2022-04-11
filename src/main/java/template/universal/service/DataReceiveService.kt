@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import template.universal.repository.FormDataRepository
 import template.universal.model.FormData
-import template.universal.model.PageMetaData
 import template.universal.model.Responses
 import template.universal.repository.PageMetaDataRepository
 import template.universal.security.TrustableKeyProvider
-import java.util.*
 
 @Service
 class DataReceiveService {
@@ -25,9 +23,11 @@ class DataReceiveService {
         val metaData = pageMetaDataRepository.getPageMetaData(data.submitPage)
             ?: return Responses.fail(message = "页面不存在")
 
-        if (metaData.pageVerify && token != null) {
-            val trustableKey = trustableKeyProvider.verifyTrustableToken(token)
-                ?: return Responses.fail(message = "用户验证失败")
+        if (metaData.pageVerify) {
+            if (token == null) {
+                return Responses.fail(message = "数据提交需要验证")
+            }
+            val trustableKey = trustableKeyProvider.verifyTrustableToken(token) ?: return Responses.fail(message = "用户验证失败")
 
             if (trustableKey.page != metaData.pageId) {
                 return Responses.fail(message = "提交页面错误")

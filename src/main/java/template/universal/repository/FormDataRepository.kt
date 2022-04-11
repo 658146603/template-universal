@@ -11,6 +11,6 @@ interface FormDataRepository {
     @Select("select * from form_data")
     fun getAllFormData(): List<FormData>
 
-    @Insert("insert into form_data (submit_id, submit_page, submit_ip_address, submit_time, submit_content) values (#{submitId}, #{submitPage}, #{submitIpAddress}, #{submitTime}, #{submitContent})")
+    @Insert("insert into form_data (submit_id, submit_page, submit_ip_address, submit_time, submit_content, submit_user) values (#{submitId}, #{submitPage}, #{submitIpAddress}, #{submitTime}, #{submitContent}, #{submitUser})")
     fun insertFormData(formData: FormData): Int
 }

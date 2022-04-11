@@ -3,6 +3,7 @@ package template.universal.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import template.universal.model.*
+import template.universal.repository.PageMetaDataRepository
 import template.universal.repository.UserVerifyRepository
 import template.universal.security.TrustableKeyProvider
 import template.universal.util.uuid
@@ -17,7 +18,12 @@ class UserVerifyService {
     @Autowired
     private lateinit var userVerifyRepository: UserVerifyRepository
 
+    @Autowired
+    private lateinit var pageMetaDataRepository: PageMetaDataRepository
+
     fun getEmailVerifyCode(page: String, email: String): Responses<VerifyCodeResp> {
+        pageMetaDataRepository.getPageMetaData(page) ?: return Responses.fail(message = "页面不存在")
+
         val userVerify = VerifyCode()
         userVerify.codeId = uuid()
         userVerify.codePage = page
