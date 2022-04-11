@@ -12,7 +12,10 @@ class DataReceiveService {
     lateinit var formDataRepository: FormDataRepository
 
     fun receiveData(data: FormData): Responses<FormData> {
-        formDataRepository.insertFormData(data)
-        return Responses.ok(data = data)
+        val value = formDataRepository.insertFormData(data)
+        if (value > 0) {
+            return Responses.ok(data = data)
+        }
+        return Responses.fail(message = "提交数据异常")
     }
 }

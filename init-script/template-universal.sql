@@ -19,3 +19,12 @@ create table access_log
     access_ip_address varchar(64) not null,
     access_time       datetime    not null default current_timestamp
 );
+
+create table user_verify_code
+(
+    code_id     varchar(64) not null primary key,
+    code_page   varchar(64) not null,
+    code_key    varchar(64) not null,
+    code_value  varchar(64) not null,
+    code_expire datetime    not null
+)

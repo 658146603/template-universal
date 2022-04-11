@@ -23,3 +23,6 @@ server:
 rsa:
   public-key: cert/jwt_rsa.pub
   private-key: cert/jwt_rsa.key
+remote:
+  info:
+    template-shop-url: https://shop.nfcv.xyz:8082/
