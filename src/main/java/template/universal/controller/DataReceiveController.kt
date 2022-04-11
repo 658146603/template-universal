@@ -37,6 +37,6 @@ class DataReceiveController {
         formData.submitIpAddress = request.getRequestIpAddress()
         formData.submitContent = Gson().toJson(request.parameterMap)
 
-        return dataReceiveService.receiveData(formData)
+        return dataReceiveService.receiveData(token, formData)
     }
 }

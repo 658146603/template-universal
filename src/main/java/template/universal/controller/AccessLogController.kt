@@ -17,9 +17,12 @@ class AccessLogController {
     @Autowired
     private lateinit var accessLogService: AccessLogService
 
-
     @RequestMapping("/access/{page}")
-    fun accessPage(request: HttpServletRequest, @PathVariable page: String): Responses<AccessLog> {
+    fun accessPage(request: HttpServletRequest, @PathVariable page: String?): Responses<AccessLog> {
+        if (page == null) {
+            return Responses.fail(message = "参数错误")
+        }
+
         val accessLog = AccessLog()
 
         accessLog.accessId = uuid()

@@ -9,7 +9,8 @@ create table form_data
     submit_page       varchar(64) not null,
     submit_ip_address varchar(64) not null,
     submit_time       datetime    not null default current_timestamp,
-    submit_content    longtext    not null
+    submit_content    longtext    not null,
+    submit_user       varchar(64) null
 );
 
 create table access_log
@@ -27,4 +28,10 @@ create table user_verify_code
     code_key    varchar(64) not null,
     code_value  varchar(64) not null,
     code_expire datetime    not null
-)
+);
+
+create table page_meta_data
+(
+    page_id     varchar(64) not null primary key,
+    page_verify boolean     not null default false
+);

@@ -8,6 +8,7 @@ public class FormData {
     private String submitIpAddress;
     private Date submitTime;
     private String submitContent;
+    private String submitUser;
 
     public String getSubmitId() {
         return submitId;
@@ -47,5 +48,13 @@ public class FormData {
 
     public void setSubmitContent(String submitContent) {
         this.submitContent = submitContent;
+    }
+
+    public String getSubmitUser() {
+        return submitUser;
+    }
+
+    public void setSubmitUser(String submitUser) {
+        this.submitUser = submitUser;
     }
 }
