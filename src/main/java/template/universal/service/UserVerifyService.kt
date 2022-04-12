@@ -52,7 +52,6 @@ class UserVerifyService {
         val trustableKey = TrustableKey()
         trustableKey.key = userVerify.codeKey
         trustableKey.page = userVerify.codePage
-        trustableKey.expire = Date(System.currentTimeMillis() + TRUSTABLE_KEY_EXPIRE_TIME)
         val token = trustableKeyProvider.signTrustableToken(trustableKey)
         return Responses.ok(data = TrustableKeyResp(token))
     }
@@ -75,9 +74,6 @@ class UserVerifyService {
 
     companion object {
         // 验证码有效时间
-        private const val CODE_EXPIRE_TIME = 10 * 60 * 1000
-
-        // 提交凭证有效时间
-        private const val TRUSTABLE_KEY_EXPIRE_TIME = 24 * 60 * 60 * 1000
+        private const val CODE_EXPIRE_TIME = 10 * 60 * 1000L
     }
 }
