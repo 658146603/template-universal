@@ -2,6 +2,7 @@ package template.universal.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.exceptions.JWTVerificationException
+import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +19,7 @@ class TrustableKeyProvider {
         return JWT.create()
             .withIssuedAt(Date())
             .withExpiresAt(Date(System.currentTimeMillis() + TRUSTABLE_KEY_EXPIRE_TIME))
-            .withClaim(TRUSTABLE_KEY, JwtManager.gson.toJson(trustableKey))
+            .withClaim(TRUSTABLE_KEY, gson.toJson(trustableKey))
             .sign(jwtManager.algorithm)
     }
 
@@ -27,7 +28,7 @@ class TrustableKeyProvider {
             val decoded = JWT.require(jwtManager.algorithm)
                 .build()
                 .verify(token)
-            return JwtManager.gson.fromJson(
+            return gson.fromJson(
                 decoded.getClaim(TRUSTABLE_KEY).asString(),
                 object : TypeToken<TrustableKey>() {}.type
             )
@@ -44,5 +45,7 @@ class TrustableKeyProvider {
 
         // 提交凭证有效时间
         private const val TRUSTABLE_KEY_EXPIRE_TIME = 24 * 60 * 60 * 1000L
+
+        val gson = Gson()
     }
 }
