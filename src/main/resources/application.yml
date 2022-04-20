@@ -26,3 +26,4 @@ rsa:
 remote:
   info:
     template-shop-url: https://shop.nfcv.xyz:8082/
+    template-universal-url: https://page.nfcv.xyz:20000/

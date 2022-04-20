@@ -20,7 +20,7 @@ class DataReceiveService {
     lateinit var trustableKeyProvider: TrustableKeyProvider
 
     fun receiveData(token: String?, data: FormData): Responses<FormData> {
-        val metaData = pageMetaDataRepository.getPageMetaData(data.submitPage)
+        val metaData = pageMetaDataRepository.getPageInfo(data.submitPage)
             ?: return Responses.fail(message = "页面不存在")
 
         if (metaData.pageVerify) {

@@ -22,7 +22,7 @@ class UserVerifyService {
     private lateinit var pageMetaDataRepository: PageMetaDataRepository
 
     fun getEmailVerifyCode(page: String, email: String): Responses<VerifyCodeResp> {
-        pageMetaDataRepository.getPageMetaData(page) ?: return Responses.fail(message = "页面不存在")
+        pageMetaDataRepository.getPageInfo(page) ?: return Responses.fail(message = "页面不存在")
 
         val userVerify = VerifyCode()
         userVerify.codeId = uuid()

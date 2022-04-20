@@ -30,8 +30,10 @@ create table user_verify_code
     code_expire datetime    not null
 );
 
-create table page_meta_data
+create table page_info
 (
-    page_id     varchar(64) not null primary key,
-    page_verify boolean     not null default false
+    page_id  varchar(64)  not null primary key,
+    title    varchar(64)  not null,
+    elements text         not null,
+    features varchar(256) not null
 );
