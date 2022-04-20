@@ -32,8 +32,8 @@ class DataReceiveService {
         }
 
         if (userVerify != null && (userVerify.id == DeployOption.USER_VERIFY_TEL || userVerify.id == DeployOption.USER_VERIFY_EMAIL)) {
-            if (token == null) {
-                return Responses.fail(message = "数据提交需要验证")
+            if (token.isNullOrEmpty()) {
+                return Responses.fail(message = "数据提交需要验证身份")
             }
             val trustableKey = trustableKeyProvider.verifyTrustableToken(token) ?: return Responses.fail(message = "用户验证失败")
 
