@@ -36,6 +36,6 @@ create table page_info
     title           varchar(64)  not null,
     elements        text         not null,
     deploy_type     varchar(64)  not null,
-    user_verify     varchar(64)  null,
-    deploy_addition varchar(128) null
+    user_verify     varchar(64)  not null,
+    deploy_addition varchar(128) not null
 );
