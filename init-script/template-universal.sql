@@ -32,8 +32,10 @@ create table user_verify_code
 
 create table page_info
 (
-    page_id  varchar(64)  not null primary key,
-    title    varchar(64)  not null,
-    elements text         not null,
-    features varchar(256) not null
+    page_id         varchar(64)  not null primary key,
+    title           varchar(64)  not null,
+    elements        text         not null,
+    deploy_type     varchar(64)  not null,
+    user_verify     varchar(64)  null,
+    deploy_addition varchar(128) null
 );

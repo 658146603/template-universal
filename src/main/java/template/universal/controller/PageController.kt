@@ -1,22 +1,20 @@
 package template.universal.controller
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import template.universal.model.DeployOption
 import template.universal.model.PageInfo
 import template.universal.model.Responses
+import template.universal.service.PageService
 
 @RestController
 class PageController {
+    @Autowired
+    private lateinit var pageService: PageService
+
     @RequestMapping("/page/{page}")
     fun getPageInfo(@PathVariable page: String): Responses<PageInfo> {
-        val deployOptions =
-            listOf(DeployOption.DEPLOY_TYPE[0], DeployOption.USER_VERIFY[0], DeployOption.DEPLOY_ADDITION[1]).joinToString(" ")
-        val title = "Page $page"
-        val elements = """
-            [{"id":"DZkFcgvGDgICrcsZqLaRtqUvlhFTOPby","type":"FORM","node_prop":{},"children":[{"size":12,"children":[{"id":"RNQSDnzxyUkbHbeOKLZSxUzGdsLHleNQ","type":"IMAGE","node_prop":{"url":"http://192.168.123.222:8082/image/7a2918c9-3803-4702-9891-18343f2fba84","content":"假期出行行程登记","clazz":{"textSize":"mdui-typo-headline"}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"kTHTKCwFBaMhxaovjbcuwcHjFAtyhXhP","type":"DIVIDER","node_prop":{"content":"=","clazz":{"textColor":"mdui-text-color-white"}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"FwCXsgqqBXQOBoFPbxWbHPWLUGZaKGXj","type":"TEXT_MULTI","node_prop":{"content":"为提高我司员工安全防范意识，使各位度过一个安全、愉快的假期，特做此次信息登记，请根据自己的真实情况如实填写。","clazz":{"textAlign":"mdui-text-center","textSize":"mdui-typo-title"}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"uZzVEgqgXEMtlQcuhLQuULwLzqQlGYoJ","type":"DIVIDER","node_prop":{"content":"=","clazz":{"textAlign":"mdui-text-right","textSize":"mdui-typo-headline","backgroundColor":"mdui-color-white","textColor":"mdui-text-color-white"}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"RULFMnUjBVIjUCvSjTREOUjVBcFsbahP","type":"CONTAINER","node_prop":{},"children":[{"size":12,"children":[{"id":"aEJBNBwSexySgUYMYDoWYIKhozMBlxbp","type":"TEXT_SINGLE","node_prop":{"content":"您的姓名","clazz":{"textSize":"mdui-typo-body-1"}},"children":[],"form_prop":{},"universal_prop":{}}]},{"size":12,"children":[{"id":"PVthgpGGNQHTPCMJsYqZsbpWZHIdmfch","type":"INPUT","node_prop":{"content":"请输入您的姓名","type":"text","name":"name","clazz":{"textAlign":"mdui-text-left","textSize":"mdui-typo-body-2"}},"children":[],"form_prop":{},"universal_prop":{}}]}],"form_prop":{"method":"POST"}},{"id":"CvUwzkswaLUjTSDwXwqUlELMtsimRyko","type":"DIVIDER","node_prop":{"content":"=","clazz":{"textColor":"mdui-text-color-white"}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"AkkGNGNsawFBdprzhlMQCTxLFbjLzKCs","type":"RADIO_GROUP","node_prop":{"name":"if-absent","content":"是否请假","clazz":{"textSize":"mdui-typo-body-1","textAlign":"mdui-text-left","textColor":"mdui-text-color-black"}},"children":[],"form_prop":{},"universal_prop":{"options":[{"label":"","value":"是"},{"label":"1213123","value":"否"}]}},{"id":"UEPhURlMlfEVJvglojNCBDiICPRAeobU","type":"DIVIDER","node_prop":{"clazz":{"textSize":"mdui-typo-headline","textColor":"mdui-text-color-white"},"content":"="},"children":[],"form_prop":{},"universal_prop":{}},{"id":"WiflIezGfXfloKDclfsmuTtgfOvjAmwf","type":"CONTAINER","node_prop":{},"children":[{"size":12,"children":[{"id":"qbXThcSukFAjSunPPMTOCWCalbUxJDcu","type":"TEXT_SINGLE","node_prop":{"content":"您的工号","clazz":{"textSize":"mdui-typo-body-1"}},"children":[],"form_prop":{},"universal_prop":{}}]},{"size":12,"children":[{"id":"JcrbhjcXPyjQrEYNkyTPPLqNeLjDAUxz","type":"INPUT","node_prop":{"content":"请输入工号","type":"number","clazz":{"textSize":"mdui-typo-body-2"},"name":"p_id"},"children":[],"form_prop":{},"universal_prop":{}}]}],"form_prop":{}},{"id":"kjMtJbixZMzmEHzqxNhTnwqVXQKUZQNI","type":"DIVIDER","node_prop":{"clazz":{"textSize":"mdui-typo-headline","textColor":"mdui-text-color-white"},"content":"="},"children":[],"form_prop":{},"universal_prop":{}},{"id":"AeJBVuCzTPgnkXbXWvgtZAiWyKLYwjTA","type":"BUTTON","node_prop":{"content":"提交","clazz":{"textSize":"mdui-typo-subtitle","textColor":"mdui-text-color-white","backgroundColor":"mdui-color-teal"}},"children":[],"form_prop":{},"universal_prop":{"action":"","arguments":[]}}]}],"form_prop":{"method":"POST","url":""}},{"id":"yHcWuvXTueTBQrEhgxlSeIICFFmLAOgL","type":"IMAGE","node_prop":{"url":"http://192.168.123.222:8082/image/d31b4afb-3b4f-47d9-a323-f402bab86a86","clazz":{}},"children":[],"form_prop":{},"universal_prop":{}},{"id":"OrasWchTzDGEYiFBnIauegnMMdnoIIhI","type":"DIVIDER","node_prop":{"content":"31146/35648/31040","clazz":{"textColor":"mdui-text-color-grey"}},"children":[],"form_prop":{},"universal_prop":{}}]
-        """.trimIndent()
-        return Responses.ok(data = PageInfo(title, elements, deployOptions))
+        return pageService.getPageInfo(page)
     }
 }
