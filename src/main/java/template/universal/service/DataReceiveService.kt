@@ -31,6 +31,11 @@ class DataReceiveService {
             return Responses.fail(message = "页面未配置发布方式")
         }
 
+        if (deployType.id == DeployOption.DEPLOY_TYPE_STATIC) {
+            // 静态发布方式不接受数据
+            return Responses.fail(message = "静态发布方式不接受数据")
+        }
+
         if (userVerify != null && (userVerify.id == DeployOption.USER_VERIFY_TEL || userVerify.id == DeployOption.USER_VERIFY_EMAIL)) {
             if (token.isNullOrEmpty()) {
                 return Responses.fail(message = "数据提交需要验证身份")
