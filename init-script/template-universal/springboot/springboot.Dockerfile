@@ -10,4 +10,4 @@ ADD bin /home/template
 EXPOSE 20000
 USER template
 WORKDIR /home/template
-ENTRYPOINT [ "java", "-jar", "/home/template/template-universal-1.0.0.jar" ]
+ENTRYPOINT [ "java", "-jar", "/home/template/template-universal-1.0.0.jar", "--spring.profiles.active=prod" ]

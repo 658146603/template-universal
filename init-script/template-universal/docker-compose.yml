@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: dbpassword
       MYSQL_DATABASE: template-universal
     ports:
-      - "20002:3306"
+      - "23306:3306"
 
   universal-springboot:
     container_name: template-universal-springboot
@@ -27,12 +27,12 @@ services:
     ports:
       - "20001:20000"
 
-  universal-nginx:
-    container_name: template-universal-nginx
-    image: template-universal/nginx
-    restart: always
-    build:
-      context: ./nginx/
-      dockerfile: nginx.Dockerfile
-    ports:
-      - "20000:80"
+  # universal-nginx:
+  #   container_name: template-universal-nginx
+  #   image: template-universal/nginx
+  #   restart: always
+  #   build:
+  #     context: ./nginx/
+  #     dockerfile: nginx.Dockerfile
+  #   ports:
+  #     - "20000:80"
