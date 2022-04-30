@@ -6,6 +6,7 @@ import template.universal.model.*
 import template.universal.security.RemoteControlProvider
 import template.universal.security.RemoteInfoProperties
 import template.universal.service.AccessLogService
+import template.universal.service.DataReceiveService
 import template.universal.service.PageDeployService
 import template.universal.service.PageService
 
@@ -16,6 +17,9 @@ class PageController {
 
     @Autowired
     private lateinit var accessLogService: AccessLogService
+
+    @Autowired
+    private lateinit var dataReceiveService: DataReceiveService
 
     @Autowired
     private lateinit var pageDeployService: PageDeployService
@@ -77,5 +81,21 @@ class PageController {
             return Responses.fail(message = "参数不能为空")
         }
         return accessLogService.getAccessStatistics(page.pageId)
+    }
+
+    @RequestMapping("/page/form/data")
+    fun getPageFromData(@RequestHeader("Authorization") token: String?, @RequestBody page: PageFromDataReq?): Responses<PageFromDataResp> {
+        if (token == null) {
+            return Responses.fail(message = "凭证为空")
+        }
+        val remoteAction = remoteControlProvider.verifyServer(token) ?: return Responses.fail(message = "凭证验证失败")
+        if (remoteInfo.templateShopUrl != remoteAction.server || !remoteAction.isFormData) {
+            return Responses.fail(message = "ACTION与URL不匹配")
+        }
+
+        if (page?.pageId == null) {
+            return Responses.fail(message = "参数不能为空")
+        }
+        return dataReceiveService.getPageFromData(page.pageId)
     }
 }
