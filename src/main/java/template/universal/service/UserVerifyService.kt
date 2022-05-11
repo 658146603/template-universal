@@ -21,6 +21,9 @@ class UserVerifyService {
     @Autowired
     private lateinit var pageInfoRepository: PageInfoRepository
 
+    @Autowired
+    private lateinit var mailService: MailService
+
     fun getEmailVerifyCode(page: String, email: String): Responses<VerifyCodeResp> {
         pageInfoRepository.getPageInfo(page) ?: return Responses.fail(message = "页面不存在")
 
@@ -33,7 +36,7 @@ class UserVerifyService {
 
         val result = userVerifyRepository.addUserVerify(userVerify)
         if (result > 0) {
-            sendEmailVerify(page, email)
+            sendEmailVerify(userVerify.codeKey, userVerify.codeValue)
             return Responses.ok(data = VerifyCodeResp(userVerify.codeId, userVerify.codeExpire))
         }
         return Responses.fail(message = "验证码生成失败")
@@ -57,8 +60,7 @@ class UserVerifyService {
     }
 
     private fun sendEmailVerify(email: String, code: String) {
-        // TODO: send email
-        println("send email to $email with code $code")
+        mailService.sendMail(email, "来自TemplateShop的验证码", "您的验证码为$code，用于验证您的邮箱地址，请勿泄漏。")
     }
 
     // generate verify code 0~9, a~z
