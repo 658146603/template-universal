@@ -34,3 +34,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+init-script/template-universal/nginx/html/

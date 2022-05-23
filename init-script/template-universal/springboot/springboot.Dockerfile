@@ -5,7 +5,7 @@ ENV SHELL=/bin/bash
 
 RUN adduser --gecos '' --disabled-password template
 
-ADD bin /home/template
+ADD --chown=template bin /home/template
 
 EXPOSE 20000
 USER template
