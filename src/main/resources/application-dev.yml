@@ -5,7 +5,7 @@ spring:
     multipart:
       max-file-size: 10MB
   datasource:
-    url: jdbc:mysql://nfcv.xyz:23306/template-universal?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:23306/template-universal?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: dbuser
     password: dbpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
